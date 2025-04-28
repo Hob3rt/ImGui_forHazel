@@ -3838,14 +3838,13 @@ void ImGui::SetActiveID(ImGuiID id, ImGuiWindow* window)
     //------
     //将DC改为window->DC
     //并在之前检查保证window对象非空
-    if (window == nullptr)
+    if (window != nullptr)
     {
-        throw "window is nullptr";
-    }
-    for (int i = 0; i < window->DC.Layouts.Data.Size; i++)
-    {
-        ImGuiLayout* layout = (ImGuiLayout*)window->DC.Layouts.Data[i].val_p;
-        IM_DELETE(layout);
+        for (int i = 0; i < window->DC.Layouts.Data.Size; i++)
+        {
+            ImGuiLayout* layout = (ImGuiLayout*)window->DC.Layouts.Data[i].val_p;
+            IM_DELETE(layout);
+        }
     }
     //------
     // While most behaved code would make an effort to not steal active id during window move/drag operations,
